@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\FileSystem;
 
-class FileSystem
+class Filesystem
 {
     public static $fileSystem = RealFileSystem::class;
 
@@ -83,7 +83,7 @@ class FileSystem
 
     private static function applyToEachLine($absPath, $lineChanger)
     {
-        $fs = FileSystem::$fileSystem;
+        $fs = Filesystem::$fileSystem;
         $reading = $fs::fopen($absPath, 'r');
         $tmp = '_tmpp-'. rand(10000, 99990);
         $tmpFile = $fs::fopen($absPath.$tmp, 'w');
