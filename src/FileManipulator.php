@@ -6,7 +6,7 @@ class FileManipulator
 {
     public static $fileSystem = RealFileSystem::class;
 
-    public static function removeLine($file, $_lineNumber = null)
+    public static function removeLine($absPath, $_lineNumber = null)
     {
         $lineChanger = function ($currentLineNum) use ($_lineNumber) {
             // Replace only the first occurrence in the file
@@ -15,7 +15,7 @@ class FileManipulator
             }
         };
 
-        return self::applyToEachLine($file, $lineChanger);
+        return self::applyToEachLine($absPath, $lineChanger);
     }
 
     public static function replaceFirst($absPath, $search, $replace = '', $_line = null)
@@ -47,7 +47,8 @@ class FileManipulator
     {
         $fs = FileSystem::$fileSystem;
         $reading = $fs::fopen($absPath, 'r');
-        $tmpFile = $fs::fopen($absPath.'._tmp', 'w');
+        $tmp = '_tmpp-'. rand(10000, 99990);
+        $tmpFile = $fs::fopen($absPath.$tmp, 'w');
 
         $isReplaced = false;
 
@@ -68,9 +69,9 @@ class FileManipulator
         $fs::fclose($tmpFile);
         // Might as well not overwrite the file if we didn't replace anything
         if ($isReplaced) {
-            $fs::rename($absPath.'._tmp', $absPath);
+            $fs::rename($absPath.$tmp, $absPath);
         } else {
-            $fs::unlink($absPath.'._tmp');
+            $fs::unlink($absPath.$tmp);
         }
 
         return $isReplaced;

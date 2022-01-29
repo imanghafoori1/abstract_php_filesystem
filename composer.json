@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Imanghafoori\\FileSystem\\Tests\\": "tests"
+            "Imanghafoori\\Filesystem\\Tests\\": "tests"
         }
     },
     "scripts": {

@@ -33,11 +33,7 @@ class FakeFileSystem
 
     public static function fopen($filename, $mode)
     {
-        try {
-            $lines = file($filename);
-        } catch (ErrorException $e) {
-            $lines = [];
-        }
+        $lines = is_file($filename) ? file($filename) : [];
 
         self::$files[$filename] = $lines;
         self::$pointers[$filename] = 0;
