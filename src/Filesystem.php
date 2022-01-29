@@ -1,15 +1,15 @@
 <?php
 
-namespace Imanghafoori\FileSystem;
+namespace Imanghafoori\Filesystem;
 
 class Filesystem
 {
-    public static $fileSystem = RealFileSystem::class;
+    public static $fileSystem = RealFilesystem::class;
 
     public static function fake()
     {
-        FakeFileSystem::reset();
-        self::$fileSystem = FakeFileSystem::class;
+        FakeFilesystem::reset();
+        self::$fileSystem = FakeFilesystem::class;
     }
 
     public static function changeLineEndings($fileAsArray, $line_endings)
@@ -22,7 +22,7 @@ class Filesystem
         return $result;
     }
 
-    public static function file_get_content($absPath, $line_endings = null)
+    public static function file_get_contents($absPath, $line_endings = null)
     {
         if (isset(self::$fileSystem::$putContent[$absPath])) {
             $content = self::$fileSystem::$putContent[$absPath];

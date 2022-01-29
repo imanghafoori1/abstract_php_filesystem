@@ -1,10 +1,8 @@
 <?php
 
-namespace Imanghafoori\FileSystem;
+namespace Imanghafoori\Filesystem;
 
-use ErrorException;
-
-class FakeFileSystem
+class FakeFilesystem
 {
     public static $putContent = [];
 

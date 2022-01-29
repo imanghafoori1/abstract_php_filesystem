@@ -1,8 +1,8 @@
 <?php
 
-namespace Imanghafoori\FileSystem;
+namespace Imanghafoori\Filesystem;
 
-class RealFileSystem
+class RealFilesystem
 {
     public static function __callStatic($method, $params)
     {

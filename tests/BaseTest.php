@@ -2,8 +2,7 @@
 
 namespace Imanghafoori\SearchReplace\Tests;
 
-use Imanghafoori\FileSystem\FileManipulator;
-use Imanghafoori\FileSystem\Filesystem;
+use Imanghafoori\Filesystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 
 class BaseTest extends TestCase
@@ -16,8 +15,8 @@ class BaseTest extends TestCase
         Filesystem::fake();
         $result = Filesystem::removeLine(__DIR__.'/stub/sample.stub', 7);
 
-        $f1 = Filesystem::file_get_content(__DIR__.'/stub/sample.stub', "\n");
-        $f2 = Filesystem::file_get_content(__DIR__.'/stub/sample_removed_line.stub', "\n");
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample_removed_line.stub', "\n");
 
         $this->assertEquals($f2, $f1);
         $this->assertEquals($result, true);
@@ -35,8 +34,8 @@ class BaseTest extends TestCase
         Filesystem::fake();
         Filesystem::removeLine(__DIR__.'/stub/sample_removed_line.stub', 3);
 
-        $f1 = Filesystem::file_get_content(__DIR__.'/stub/sample_removed_line.stub', "\n");
-        $f2 = Filesystem::file_get_content(__DIR__.'/stub/sample_removed_line2.stub', "\n");
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample_removed_line.stub', "\n");
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample_removed_line2.stub', "\n");
 
         $this->assertEquals($f2, $f1);
     }
@@ -49,8 +48,8 @@ class BaseTest extends TestCase
         Filesystem::fake();
         Filesystem::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 3);
 
-        $f1 = Filesystem::file_get_content(__DIR__.'/stub/sample.stub', "\n");
-        $f2 = Filesystem::file_get_content(__DIR__.'/stub/sample_inserted_hello.stub', "\n");
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample_inserted_hello.stub', "\n");
 
         $this->assertEquals($f2, $f1);
     }
@@ -58,14 +57,31 @@ class BaseTest extends TestCase
     /**
      * @test
      */
-    public function insertLine2()
+    public function insertLineBeyondFileLength()
     {
         Filesystem::fake();
-        Filesystem::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 20);
 
-        $f1 = Filesystem::file_get_content(__DIR__.'/stub/sample.stub', "\n");
-        $f2 = Filesystem::file_get_content(__DIR__.'/stub/sample.stub', "\n");
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+        $result = Filesystem::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 200);
+
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
 
         $this->assertEquals($f2, $f1);
+        $this->assertEquals($result, false);
+    }
+
+    /**
+     * @test
+     */
+    public function replaceFirst()
+    {
+        Filesystem::fake();
+        $result = Filesystem::replaceFirst(__DIR__.'/stub/sample.stub', 'TestCase', 'Hello');
+
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/replacedFirst.stub', "\n");
+
+        $this->assertEquals($f2, $f1);
+        $this->assertTrue($result);
     }
 }
