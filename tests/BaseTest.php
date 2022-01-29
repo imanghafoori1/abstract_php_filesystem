@@ -84,4 +84,19 @@ class BaseTest extends TestCase
         $this->assertEquals($f2, $f1);
         $this->assertTrue($result);
     }
+
+    /**
+     * @test
+     */
+    public function replaceFirstFail()
+    {
+        Filesystem::fake();
+        $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+        $result = Filesystem::replaceFirst(__DIR__.'/stub/sample.stub', 'dsfvsfdv', 'Hello');
+
+        $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
+
+        $this->assertEquals($f2, $f1);
+        $this->assertFalse($result);
+    }
 }
