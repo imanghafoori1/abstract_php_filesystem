@@ -7,6 +7,7 @@ class RealFilesystem
     public static function __callStatic($method, $params)
     {
         $methods = [
+            'file_get_contents',
             'file_put_contents',
             'feof',
             'fopen',

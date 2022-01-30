@@ -29,7 +29,7 @@ class FakeFilesystem
         return ! isset(self::$files[$stream][$i]);
     }
 
-    public static function fopen($filename, $mode)
+    public static function fopen($filename, $mode = 'r')
     {
         $lines = is_file($filename) ? file($filename) : [];
 
@@ -70,5 +70,41 @@ class FakeFilesystem
     {
         //unset(self::$files[$filename]);
         //unset(self::$pointers[$filename]);
+    }
+
+    public static function removeLine($absPath, $_lineNumber = null)
+    {
+        self::fopen($absPath);
+
+        $count = count(self::$files[$absPath]);
+
+        if ($count < $_lineNumber) {
+            return false;
+        }
+
+        unset(self::$files[$absPath][$_lineNumber - 1]);
+
+        // Re-index the array elements
+        self::$files[$absPath] = array_values(self::$files[$absPath]);
+
+        return true;
+    }
+
+    public static function replaceFirst($absPath, $search, $replace = '', $_line = null)
+    {
+
+    }
+
+    public static function insertNewLine($absPath, $newLine, $atLine)
+    {
+        self::fopen($absPath);
+
+        $count = count(self::$files[$absPath]);
+
+        if ($count < $atLine) {
+            return false;
+        }
+
+        array_splice(self::$files[$absPath], $atLine - 1, 0, [$newLine.PHP_EOL]);
     }
 }
