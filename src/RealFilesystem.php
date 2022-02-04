@@ -11,11 +11,16 @@ class RealFilesystem
             'file_put_contents',
             'feof',
             'fopen',
-            'fgets',
+            'fgets', 'fgetc',
             'fwrite',
             'rename',
             'unlink',
-            'close',
+            'mkdir',
+            'rmdir',
+            'ftruncate',
+            'fflush',
+            'touch',
+            'fclose',
         ];
 
         if (in_array($method, $methods, true)) {
