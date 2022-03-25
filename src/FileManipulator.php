@@ -84,7 +84,12 @@ class FileManipulator
         $fs::fclose($tmpFile);
         // Might as well not overwrite the file if we didn't replace anything
         if ($isReplaced) {
-            $fs::rename($absPath.$tmp, $absPath);
+            try {
+                $fs::rename($absPath.$tmp, $absPath);
+            } catch (\ErrorException $e) {
+                $fs::unlink($absPath.$tmp);
+                return false;
+            }
         } else {
             $fs::unlink($absPath.$tmp);
         }
