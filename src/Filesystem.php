@@ -44,19 +44,19 @@ class Filesystem
 
     public static function file_get_contents($absPath, $line_endings = null)
     {
-        if (isset(LineManipulator::$fileSystem::$putContent[$absPath])) {
-            $content = LineManipulator::$fileSystem::$putContent[$absPath];
+        if (isset(FileManipulator::$fileSystem::$putContent[$absPath])) {
+            $content = FileManipulator::$fileSystem::$putContent[$absPath];
             $line_endings && $content = str_replace(["\r\n", "\n", "\r"], $line_endings, $content);
 
             return $content;
         }
 
-        if (isset(LineManipulator::$fileSystem::$files[$absPath])) {
+        if (isset(FileManipulator::$fileSystem::$files[$absPath])) {
             if (! in_array($line_endings, ["\r\n", "\n", "\r"], true)) {
-                return implode('', LineManipulator::$fileSystem::$files[$absPath]);
+                return implode('', FileManipulator::$fileSystem::$files[$absPath]);
             }
 
-            return self::changeLineEndings(LineManipulator::$fileSystem::$files[$absPath], $line_endings);
+            return self::changeLineEndings(FileManipulator::$fileSystem::$files[$absPath], $line_endings);
         }
 
         if (file_exists($absPath)) {

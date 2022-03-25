@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\Filesystem;
 
-class LineManipulator
+class FileManipulator
 {
     public static $fileSystem = RealFilesystem::class;
 

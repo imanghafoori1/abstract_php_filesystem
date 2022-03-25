@@ -3,7 +3,7 @@
 namespace Imanghafoori\SearchReplace\Tests;
 
 use Imanghafoori\Filesystem\Filesystem;
-use Imanghafoori\Filesystem\LineManipulator;
+use Imanghafoori\Filesystem\FileManipulator;
 use PHPUnit\Framework\TestCase;
 
 class RealFilesystemTest extends TestCase
@@ -13,8 +13,8 @@ class RealFilesystemTest extends TestCase
      */
     public function removeLine()
     {
-        LineManipulator::fake();
-        $result = LineManipulator::removeLine(__DIR__.'/stub/sample.stub', 7);
+        FileManipulator::fake();
+        $result = FileManipulator::removeLine(__DIR__.'/stub/sample.stub', 7);
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
 
@@ -24,12 +24,12 @@ class RealFilesystemTest extends TestCase
         $this->assertEquals($f2, $f1);
         $this->assertEquals($result, true);
 
-        LineManipulator::fake();
-        $result = LineManipulator::removeLine(__DIR__.'/stub/sample.stub', 17);
+        FileManipulator::fake();
+        $result = FileManipulator::removeLine(__DIR__.'/stub/sample.stub', 17);
         $this->assertEquals($result, false);
 
-        LineManipulator::fake();
-        $result = LineManipulator::removeLine(__DIR__.'/stub/sample.stub', 16);
+        FileManipulator::fake();
+        $result = FileManipulator::removeLine(__DIR__.'/stub/sample.stub', 16);
         $this->assertEquals($result, true);
     }
 
@@ -38,8 +38,8 @@ class RealFilesystemTest extends TestCase
      */
     public function removeLine2()
     {
-        LineManipulator::fake();
-        LineManipulator::removeLine(__DIR__.'/stub/sample_removed_line.stub', 3);
+        FileManipulator::fake();
+        FileManipulator::removeLine(__DIR__.'/stub/sample_removed_line.stub', 3);
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample_removed_line.stub', "\n");
         $f2 = file_get_contents(__DIR__.'/stub/sample_removed_line2.stub', "\n");
@@ -53,8 +53,8 @@ class RealFilesystemTest extends TestCase
      */
     public function removeLine3()
     {
-        LineManipulator::fake();
-        LineManipulator::removeLine(__DIR__.'/stub/sample.stub', [3, 7]);
+        FileManipulator::fake();
+        FileManipulator::removeLine(__DIR__.'/stub/sample.stub', [3, 7]);
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
         $f2 = file_get_contents(__DIR__.'/stub/sample_removed_line2.stub', "\n");
@@ -68,8 +68,8 @@ class RealFilesystemTest extends TestCase
      */
     public function insertLine()
     {
-        LineManipulator::fake();
-        LineManipulator::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 3);
+        FileManipulator::fake();
+        FileManipulator::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 3);
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
         $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample_inserted_hello.stub', "\n");
@@ -82,10 +82,10 @@ class RealFilesystemTest extends TestCase
      */
     public function insertLineBeyondFileLength()
     {
-        LineManipulator::fake();
+        FileManipulator::fake();
 
         $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
-        $result = LineManipulator::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 17);
+        $result = FileManipulator::insertNewLine(__DIR__.'/stub/sample.stub', 'Hello', 17);
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
 
@@ -98,8 +98,8 @@ class RealFilesystemTest extends TestCase
      */
     public function replaceFirst()
     {
-        LineManipulator::fake();
-        $result = LineManipulator::replaceFirst(__DIR__.'/stub/sample.stub', 'TestCase', 'Hello');
+        FileManipulator::fake();
+        $result = FileManipulator::replaceFirst(__DIR__.'/stub/sample.stub', 'TestCase', 'Hello');
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
         $f2 = Filesystem::file_get_contents(__DIR__.'/stub/replacedFirst.stub', "\n");
@@ -113,9 +113,9 @@ class RealFilesystemTest extends TestCase
      */
     public function replaceFirstFail()
     {
-        LineManipulator::fake();
+        FileManipulator::fake();
         $f2 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
-        $result = LineManipulator::replaceFirst(__DIR__.'/stub/sample.stub', 'dsfvsfdv', 'Hello');
+        $result = FileManipulator::replaceFirst(__DIR__.'/stub/sample.stub', 'dsfvsfdv', 'Hello');
 
         $f1 = Filesystem::file_get_contents(__DIR__.'/stub/sample.stub', "\n");
 
