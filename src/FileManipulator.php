@@ -58,6 +58,11 @@ class FileManipulator
         return self::applyToEachLine($absPath, $lineChanger);
     }
 
+    public static function insertAtLine($absPath, $newLine, $atLine)
+    {
+        return self::insertNewLine($absPath, $newLine, $atLine);
+    }
+
     private static function applyToEachLine($absPath, $lineChanger)
     {
         $fs = self::$fileSystem;
