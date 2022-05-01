@@ -24,7 +24,11 @@ class RealFilesystem
         ];
 
         if (in_array($method, $methods, true)) {
-            return $method(...$params);
+            try {
+                return $method(...$params);
+            } catch (\ErrorException $e) {
+                //
+            }
         }
     }
 }
