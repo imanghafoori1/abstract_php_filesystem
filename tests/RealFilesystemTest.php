@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\SearchReplace\Tests;
 
-use Imanghafoori\Filesystem\Filesystem;
 use Imanghafoori\Filesystem\FileManipulator;
+use Imanghafoori\Filesystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 
 class RealFilesystemTest extends TestCase

@@ -21,9 +21,9 @@ class Filesystem
     public static function __callStatic($method, $params)
     {
         $methods = [
-           'replaceFirst',
-           'removeLine',
-           'insertNewLine',
+            'replaceFirst',
+            'removeLine',
+            'insertNewLine',
 
         ];
 

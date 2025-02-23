@@ -67,7 +67,7 @@ class FileManipulator
     {
         $fs = self::$fileSystem;
         $reading = $fs::fopen($absPath, 'r');
-        $tmp = '_tmpp-'. rand(10000, 99990);
+        $tmp = '_tmpp-'.rand(10000, 99990);
         $tmpFile = $fs::fopen($absPath.$tmp, 'w');
 
         $isReplaced = false;
@@ -93,6 +93,7 @@ class FileManipulator
                 $fs::rename($absPath.$tmp, $absPath);
             } catch (\ErrorException $e) {
                 $fs::unlink($absPath.$tmp);
+
                 return false;
             }
         } else {
