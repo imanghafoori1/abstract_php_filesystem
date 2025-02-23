@@ -42,7 +42,7 @@ class FakeFilesystem
     public static function fgets($stream)
     {
         $i = self::$pointers[$stream];
-        $val = (self::$files[$stream][$i]);
+        $val = self::$files[$stream][$i];
         self::$pointers[$stream]++;
 
         return $val;
@@ -92,7 +92,6 @@ class FakeFilesystem
 
     public static function replaceFirst($absPath, $search, $replace = '', $_line = null)
     {
-
     }
 
     public static function insertNewLine($absPath, $newLine, $atLine)
