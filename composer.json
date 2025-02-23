@@ -1,8 +1,7 @@
 {
     "name": "imanghafoori/php-abstract-filesystem",
-    "description": "A thin layer on the top the php native php system.",
+    "description": "A thin layer on the top of the PHP native file system.",
     "keywords": [
-        "laravel-testing",
         "php-filesystem"
     ],
     "homepage": "https://github.com/imanghafoori1/abstract_php_filesystem",
@@ -16,7 +15,7 @@
         }
     ],
     "require": {
-        "php" : "^7.1.3|8.0.*|8.1.*|8.2.*|8.3.*"
+        "php": "^7.1.3|8.*"
     },
     "require-dev": {
         "symfony/var-dumper" : "5.*",
